@@ -1,4 +1,6 @@
-package io.shodo.kata.sudoku;
+package io.shodo.kata.sudoku.domain;
+
+import io.shodo.kata.sudoku.ValueType;
 
 import java.util.List;
 import java.util.Objects;
@@ -6,6 +8,7 @@ import java.util.Objects;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
+@ValueType
 public final class Rows {
   public static final Rows EMPTY = new Rows(emptyList());
   private final List<Row> values;

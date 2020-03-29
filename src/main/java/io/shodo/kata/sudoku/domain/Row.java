@@ -1,26 +1,28 @@
-package io.shodo.kata.sudoku;
+package io.shodo.kata.sudoku.domain;
+
+import io.shodo.kata.sudoku.ValueType;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static io.shodo.kata.sudoku.SudokuGridValidator.SUDOKU_VALID_NUMBERS;
+import static io.shodo.kata.sudoku.usecases.SudokuGridValidator.SUDOKU_VALID_NUMBERS;
+import static java.util.stream.Collectors.toList;
 
-public final class Space {
+@ValueType
+public final class Row {
   private final List<Integer> values;
 
-  public Space(String[] numbers) {
-    this.values = Stream.of(numbers)
-            .map(value -> value.split(" "))
-            .flatMap(Arrays::stream)
-            .map(Integer::valueOf)
-            .collect(Collectors.toList());
+  public Row(Integer... values) {
+    this.values = Arrays.stream(values).collect(toList());
   }
 
-  boolean isValid() {
+  public static Row from(List<Integer> rowValues) {
+    return new Row(rowValues.toArray(Integer[]::new));
+  }
+
+  public boolean isValid() {
     return this.containsOnlyValidNumbers() && this.containsAllNumbersJustOnce();
   }
 
@@ -36,12 +38,16 @@ public final class Space {
     return values.stream().filter(Predicate.isEqual(number)).count() > 1;
   }
 
+  public Integer getIndex(int index) {
+    return values.get(index);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    final Space space = (Space) o;
-    return Objects.equals(values, space.values);
+    final Row row = (Row) o;
+    return Objects.equals(values, row.values);
   }
 
   @Override
@@ -51,7 +57,7 @@ public final class Space {
 
   @Override
   public String toString() {
-    return "Space{" +
+    return "Row{" +
             "values=" + values +
             '}';
   }

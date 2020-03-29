@@ -1,14 +1,17 @@
-package io.shodo.kata.sudoku;
+package io.shodo.kata.sudoku.domain;
+
+import io.shodo.kata.sudoku.ValueType;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-import static io.shodo.kata.sudoku.SudokuGridValidator.SUDOKU_VALID_NUMBERS;
+import static io.shodo.kata.sudoku.usecases.SudokuGridValidator.SUDOKU_VALID_NUMBERS;
 import static java.util.stream.Collectors.toList;
 
-public class Column {
+@ValueType
+public final class Column {
   private final List<Integer> values;
 
   public Column(Integer... values) {

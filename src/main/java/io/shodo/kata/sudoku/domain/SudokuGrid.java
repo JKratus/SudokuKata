@@ -1,4 +1,6 @@
-package io.shodo.kata.sudoku;
+package io.shodo.kata.sudoku.domain;
+
+import io.shodo.kata.sudoku.ValueType;
 
 import java.util.List;
 import java.util.Objects;
@@ -7,7 +9,8 @@ import java.util.stream.Stream;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
-public class SudokuGrid {
+@ValueType
+public final class SudokuGrid {
   public static final SudokuGrid EMPTY = new SudokuGrid();
   private final Rows rows;
 

@@ -1,4 +1,4 @@
-package io.shodo.kata.sudoku;
+package io.shodo.kata.sudoku.domain;
 
 import org.junit.jupiter.params.provider.Arguments;
 

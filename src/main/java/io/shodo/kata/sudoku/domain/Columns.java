@@ -5,23 +5,21 @@ import io.shodo.kata.sudoku.ValueType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
-import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.IntStream.range;
 
 @ValueType
-public final class Columns {
-  public static final Columns EMPTY = new Columns(emptyList());
+final class Columns {
   private final List<Column> values;
 
   private Columns(List<Column> columns) {
     this.values = columns;
   }
 
-  public static Columns from(String[] numbers) {
+  static Columns from(String[] numbers) {
     return new Columns(Stream.of(numbers)
             .map(value -> value.split(" "))
             .map(array -> stream(array).map(Integer::valueOf).collect(toList()))
@@ -29,26 +27,23 @@ public final class Columns {
             .collect(toList()));
   }
 
-  public static Columns from(Rows rows, int startColumn) {
-    Columns columns = EMPTY;
-    for (int i = startColumn; i < rows.size() + startColumn; i++) {
-      columns = columns.add(Column.from(rows.getAllInIndex(i)));
-    }
-    return columns;
-  }
-
-  public Columns add(Column newColumn) {
-    ArrayList<Column> newColumns = new ArrayList<>(values);
-    newColumns.add(newColumn);
+  static Columns from(Rows rows, int startColumn) {
+    ArrayList<Column> newColumns = new ArrayList<>();
+    range(startColumn, rows.size() + startColumn)
+            .forEach(index -> newColumns.add(Column.from(rows.getAllInIndex(index))));
     return new Columns(newColumns);
   }
 
-  public boolean allValid() {
+  static Columns from(Rows rows) {
+    return from(rows, 0);
+  }
+
+  boolean allValid() {
     return values.stream().allMatch(Column::isValid);
   }
 
-  public List<Integer> getAllInIndex(int index) {
-    return values.stream().map(column -> column.get(index)).collect(Collectors.toList());
+  List<Integer> getAllInIndex(int index) {
+    return values.stream().map(column -> column.get(index)).collect(toList());
   }
 
   @Override
@@ -62,12 +57,5 @@ public final class Columns {
   @Override
   public int hashCode() {
     return Objects.hash(values);
-  }
-
-  @Override
-  public String toString() {
-    return "Columns{" +
-            "values=" + values +
-            '}';
   }
 }

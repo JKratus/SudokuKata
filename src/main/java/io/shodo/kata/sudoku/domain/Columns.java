@@ -5,6 +5,7 @@ import io.shodo.kata.sudoku.ValueType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
@@ -28,6 +29,14 @@ public final class Columns {
             .collect(toList()));
   }
 
+  public static Columns from(Rows rows, int startColumn) {
+    Columns columns = EMPTY;
+    for (int i = startColumn; i < rows.size() + startColumn; i++) {
+      columns = columns.add(Column.from(rows.getAllInIndex(i)));
+    }
+    return columns;
+  }
+
   public Columns add(Column newColumn) {
     ArrayList<Column> newColumns = new ArrayList<>(values);
     newColumns.add(newColumn);
@@ -36,6 +45,10 @@ public final class Columns {
 
   public boolean allValid() {
     return values.stream().allMatch(Column::isValid);
+  }
+
+  public List<Integer> getAllInIndex(int index) {
+    return values.stream().map(column -> column.get(index)).collect(Collectors.toList());
   }
 
   @Override

@@ -2,6 +2,7 @@ package io.shodo.kata.sudoku.domain;
 
 import io.shodo.kata.sudoku.ValueType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,6 +28,14 @@ public final class Rows {
 
   public List<Integer> getAllInIndex(int index) {
     return values.stream().map(row -> row.getIndex(index)).collect(toList());
+  }
+
+  public Rows getLineBetween(int start, int end) {
+    List<Row> lines = new ArrayList<>();
+    for (int i = start; i <= end; i++) {
+      lines.add(values.get(i));
+    }
+    return Rows.from(lines);
   }
 
   public int size() {

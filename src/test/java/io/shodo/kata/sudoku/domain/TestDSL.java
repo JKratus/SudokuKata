@@ -70,22 +70,22 @@ public class TestDSL {
 
   public static Stream<Arguments> provideSpaceWithInvalidNumbers() {
     return Stream.of(
-            Arguments.of(new Space(new String[]{
+            Arguments.of(Space.from(new String[]{
                     "0 1 1",
                     "2 5 4",
                     "5 6 7"
             }), false),
-            Arguments.of(new Space(new String[]{
+            Arguments.of(Space.from(new String[]{
                     "6 1 1",
                     "2 0 4",
                     "5 6 9"
             }), false),
-            Arguments.of(new Space(new String[]{
+            Arguments.of(Space.from(new String[]{
                     "6 1 1",
                     "2 3 4",
                     "5 6 0"
             }), false),
-            Arguments.of(new Space(new String[]{
+            Arguments.of(Space.from(new String[]{
                     "1 2 3",
                     "4 5 6",
                     "7 8 9"
@@ -95,12 +95,12 @@ public class TestDSL {
 
   public static Stream<Arguments> provideSpaceWithNumbersTwice() {
     return Stream.of(
-            Arguments.of(new Space(new String[]{
+            Arguments.of(Space.from(new String[]{
                     "3 1 1",
                     "2 3 4",
                     "5 6 7"
             }), false),
-            Arguments.of(new Space(new String[]{
+            Arguments.of(Space.from(new String[]{
                     "1 2 3",
                     "4 5 6",
                     "7 8 9"

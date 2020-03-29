@@ -44,7 +44,6 @@ public final class SudokuGrid {
       columns = columns.add(Column.from(rows.getAllInIndex(i)));
     }
     return columns;
-
   }
 
   public boolean allSpacesAreValid() {
@@ -52,7 +51,36 @@ public final class SudokuGrid {
   }
 
   Spaces getSpaces() {
-    return Spaces.EMPTY;
+    Spaces spaces = Spaces.EMPTY;
+
+    spaces = spaces.add(getSpace(0, 2, 0));
+    spaces = spaces.add(getSpace(0, 2, 3));
+    spaces = spaces.add(getSpace(0, 2, 6));
+
+    spaces = spaces.add(getSpace(3, 5, 0));
+    spaces = spaces.add(getSpace(3, 5, 3));
+    spaces = spaces.add(getSpace(3, 5, 6));
+
+    spaces = spaces.add(getSpace(6, 8, 0));
+    spaces = spaces.add(getSpace(6, 8, 3));
+    spaces = spaces.add(getSpace(6, 8, 6));
+
+    return spaces;
+  }
+
+  private Space getSpace(int startLine, int endLine, int spaceNumber) {
+    Rows subRows = rows.getLineBetween(startLine, endLine);
+    Columns subColumns = Columns.from(subRows, spaceNumber);
+
+    List<String> cells = subColumns.getAllInIndex(0).stream().map(String::valueOf).collect(toList());
+    List<String> cells1 = subColumns.getAllInIndex(1).stream().map(String::valueOf).collect(toList());
+    List<String> cells2 = subColumns.getAllInIndex(2).stream().map(String::valueOf).collect(toList());
+
+    String value = String.join(" ", cells);
+    String value1 = String.join(" ", cells1);
+    String value2 = String.join(" ", cells2);
+
+    return Space.from(new String[]{value, value1, value2});
   }
 
   public boolean isNotEmpty() {

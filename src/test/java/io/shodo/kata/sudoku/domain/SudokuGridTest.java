@@ -37,4 +37,35 @@ class SudokuGridTest {
     assertThat(columns).isEqualTo(expectedColumns);
   }
 
+  @Test
+  void should_build_spaces_for_rows() {
+    SudokuGrid sudokuGrid = SudokuGrid.from(new String[]{
+            "7 2 6 4 9 3 8 1 5",
+            "3 1 5 7 2 8 9 4 6",
+            "4 8 9 6 5 1 2 3 7",
+            "8 5 2 1 4 7 6 9 3",
+            "6 7 3 9 8 5 1 2 4",
+            "9 4 1 3 6 2 7 5 8",
+            "1 9 4 8 3 6 5 7 2",
+            "5 6 7 2 1 4 3 8 9",
+            "2 3 8 5 7 9 4 6 1",
+    });
+
+    Spaces spaces = sudokuGrid.getSpaces();
+
+    Spaces expectedSpaces = Spaces.from(
+            Space.from(new String[]{"7 2 6", "3 1 5", "4 8 9"}),
+            Space.from(new String[]{"4 9 3", "7 2 8", "6 5 1"}),
+            Space.from(new String[]{"8 1 5", "9 4 6", "2 3 7"}),
+            Space.from(new String[]{"8 5 2", "6 7 3", "9 4 1"}),
+            Space.from(new String[]{"1 4 7", "9 8 5", "3 6 2"}),
+            Space.from(new String[]{"6 9 3", "1 2 4", "7 5 8"}),
+            Space.from(new String[]{"1 9 4", "5 6 7", "2 3 8"}),
+            Space.from(new String[]{"8 3 6", "2 1 4", "5 7 9"}),
+            Space.from(new String[]{"5 7 2", "3 8 9", "4 6 1"})
+    );
+
+    assertThat(spaces).isEqualTo(expectedSpaces);
+  }
+
 }

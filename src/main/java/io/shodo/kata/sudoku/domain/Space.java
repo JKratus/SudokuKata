@@ -15,12 +15,16 @@ import static io.shodo.kata.sudoku.usecases.SudokuGridValidator.SUDOKU_VALID_NUM
 public final class Space {
   private final List<Integer> values;
 
-  public Space(String[] numbers) {
+  private Space(String[] numbers) {
     this.values = Stream.of(numbers)
             .map(value -> value.split(" "))
             .flatMap(Arrays::stream)
             .map(Integer::valueOf)
             .collect(Collectors.toList());
+  }
+
+  public static Space from(String[] numbers) {
+    return new Space(numbers);
   }
 
   public boolean isValid() {

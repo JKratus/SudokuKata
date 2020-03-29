@@ -57,4 +57,8 @@ public final class Column {
             "values=" + values +
             '}';
   }
+
+  public Integer get(int index) {
+    return values.get(index);
+  }
 }
